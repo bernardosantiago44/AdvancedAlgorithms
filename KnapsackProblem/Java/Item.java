@@ -1,4 +1,4 @@
-package Java.KnapsackProblem;
+package Java;
 
 public class Item {
     private int value;

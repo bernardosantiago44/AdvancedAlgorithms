@@ -1,5 +1,4 @@
-package Java.KnapsackProblem;
-
+package Java;
 import java.util.ArrayList;
 
 public class Solution {
