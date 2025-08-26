@@ -68,3 +68,6 @@ build/
 # Build directories
 build/
 bin/
+
+# Other junk
+*.DS_Store
