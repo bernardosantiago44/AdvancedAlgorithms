@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "Java.KnapsackProblem.Main",
+      "projectName": "Algorithms_f745f805"
+    },
+    {
+      "type": "java",
+      "name": "Solution",
+      "request": "launch",
+      "mainClass": "Knapsack.Solution",
+      "projectName": "Algorithms_f745f805"
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": ".",
+      "program": "build/Debug/outDebug"
+    }
+  ]
+}
