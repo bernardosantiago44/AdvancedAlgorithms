@@ -1,54 +1,46 @@
 package Java;
+
 import java.util.ArrayList;
 
 public class Solution {
-    private int capacity;
-    private ArrayList<Item> items;
-    
-    public Solution(int capacity, ArrayList<Item> items) {
-        this.capacity = capacity;
-        this.items = items;
-    }
+    public static ArrayList<Integer> knapsack(int W, int[] w, int[] v) {
+        int[][] table = new int[v.length + 1][W + 1];
 
-    public Solution() {
-        ArrayList<Item> items = new ArrayList<Item>();
-        items.add(new Item(2, 3));
-        items.add(new Item(2, 1));
-        items.add(new Item(4, 3));
-        items.add(new Item(5, 4));
-        items.add(new Item(3, 2));
-        
-        this.capacity = 7;
-        this.items = items;
-    }
+        // Iterate the list of items, starting with index 1 (because it represents)
+        // Taking the first item into the knapsack
+        for (int item = 1; item <= v.length; item++ ) {
+            for (int cap = 0; cap <= W; cap++) {
+                int currentWeight, currentValue;
+                currentWeight = w[item - 1];
+                currentValue = v[item - 1];
 
-    public int maxValueOfKnapsack() {
-        int[][] dp = new int[items.size() + 1][capacity + 1];
-        for (int item = 1; item <= items.size(); item++) {
-            Item currenItem = items.get(item - 1);
-            int currentWeight = currenItem.GetWeight();
-            int currentValue = currenItem.GetValue();
+                // Consider what if we don't take the item
+                table[item][cap] = table[item - 1][cap];
 
-            for (int cap = 0; cap <= capacity; cap++) {
-                // If we don't take the item
-                dp[item][cap] = dp[item - 1][cap];
-
-                // We take the item only if it's more profitable
+                // We only take the item if it's more profitable
                 // We must also consider the value of the previous items
-                if (currentWeight <= cap && currentValue + dp[item - 1][cap - currentWeight] > dp[item][cap]) {
-                    dp[item][cap] = currentValue + dp[item - 1][cap - currentWeight];
+                if (currentWeight <= cap && currentValue + table[item - 1][cap - currentWeight] > table[item][cap]) {
+                    table[item][cap] = currentValue + table[item - 1][cap - currentWeight];
                 }
             }
         }
 
-        int maxValue = dp[items.size()][capacity];
-        return dp[items.size()][capacity];
-        
-        // Get the items that make up the exact capacity and max value
-        // ArrayList<Item> selectedItems = new ArrayList<Item>();
-        // int remainingCapacity = capacity;
+        // Backtrack to find the items that were included
+        ArrayList<Integer> selectedItems = new ArrayList<>();
+        int remainingWeight = W;
 
+        // We start looking at the maximum value of the knapsack
+        // with the current capacity.
+        for (int i = v.length; i > 0 && remainingWeight > 0; i--) {
+            // If the item was included (that is, the current value is 
+            // different than the previous one with the same weight) then we
+            // add the current item index into the list.
+            if (table[i][remainingWeight] != table[i - 1][remainingWeight]) {
+                selectedItems.add(i - 1); // Item i-1 was included
+                remainingWeight -= w[i - 1];
+            }
+        }
 
-        // return new ArrayList<Item>();
+        return selectedItems;
     }
 }
