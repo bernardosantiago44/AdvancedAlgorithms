@@ -4,8 +4,8 @@
 using namespace std;
 
 vector<double> merge(vector<double>& left, vector<double>& right) {
-    // if (left.size() == 0) return right;
-    // else if (right.size() == 0) return left;
+    if (left.size() == 0) return right;
+    else if (right.size() == 0) return left;
 
     int leftPtr = 0, rightPtr = 0;
     
